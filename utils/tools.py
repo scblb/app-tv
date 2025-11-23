@@ -4,12 +4,11 @@ import logging
 import os
 import re
 import shutil
-import socket
 import sys
-import urllib.parse
 from collections import defaultdict
 from logging.handlers import RotatingFileHandler
 from time import time
+from urllib.parse import urlparse, urlunparse
 
 import pytz
 import requests
@@ -241,26 +240,12 @@ def get_total_urls_from_sorted_data(data):
     return list(dict.fromkeys(total_urls))[: config.urls_limit]
 
 
-def check_url_ipv6(url):
-    """
-    Check if the url is ipv6
-    """
-    try:
-        host = urllib.parse.urlparse(url).hostname
-        if host:
-            addr_info = socket.getaddrinfo(host, None, socket.AF_UNSPEC, socket.SOCK_STREAM)
-            for info in addr_info:
-                if info[0] == socket.AF_INET6:
-                    return True
-        return False
-    except:
-        return False
-
-
 def check_ipv6_support():
     """
     Check if the system network supports ipv6
     """
+    if os.getenv("GITHUB_ACTIONS"):
+        return False
     url = "https://ipv6.tokyo.test-ipv6.com/ip/?callback=?&testdomain=test-ipv6.com&testname=test_aaaa"
     try:
         print("Checking if your network supports IPv6...")
@@ -270,7 +255,7 @@ def check_ipv6_support():
             return True
     except Exception:
         pass
-    print("Your network does not support IPv6, don't worry, these results will be saved")
+    print("Your network does not support IPv6, don't worry, the IPv6 results will be saved")
     return False
 
 
@@ -291,7 +276,7 @@ def check_url_by_keywords(url, keywords=None):
     Check by URL keywords
     """
     if not keywords:
-        return True
+        return False
     else:
         return any(keyword in url for keyword in keywords)
 
@@ -340,8 +325,8 @@ def get_ip_address():
     """
     Get the IP address
     """
-    host = os.getenv("APP_HOST", config.app_host)
-    port = os.getenv("APP_PORT", config.app_port)
+    host = config.app_host
+    port = config.app_port
     return f"{host}:{port}"
 
 
@@ -365,6 +350,8 @@ def convert_to_m3u(path=None, first_channel_name=None, data=None):
         with open(path, "r", encoding="utf-8") as file:
             m3u_output = f'#EXTM3U x-tvg-url="{get_epg_url()}"\n'
             current_group = None
+            logo_url = join_url(config.cdn_url,
+                                config.logo_url) if "raw.githubusercontent.com" in config.logo_url else config.logo_url
             for line in file:
                 trimmed_line = line.strip()
                 if trimmed_line != "":
@@ -383,7 +370,7 @@ def convert_to_m3u(path=None, first_channel_name=None, data=None):
                                       + ("+" if m.group(3) else ""),
                             first_channel_name if current_group == "🕘️更新时间" else original_channel_name,
                         )
-                        m3u_output += f'#EXTINF:-1 tvg-name="{processed_channel_name}" tvg-logo="{join_url(config.cdn_url, f'https://raw.githubusercontent.com/fanmingming/live/main/tv/{processed_channel_name}.png')}"'
+                        m3u_output += f'#EXTINF:-1 tvg-name="{processed_channel_name}" tvg-logo="{join_url(logo_url, f'{processed_channel_name}.{config.logo_type}')}"'
                         if current_group:
                             m3u_output += f' group-title="{current_group}"'
                         item_data = {}
@@ -696,6 +683,35 @@ def join_url(url1: str, url2: str) -> str:
     if not url1.endswith("/"):
         url1 += "/"
     return url1 + url2
+
+
+def add_port_to_url(url: str, port: int) -> str:
+    """
+    Add port to the url
+    """
+    parsed = urlparse(url)
+    netloc = parsed.netloc
+    if parsed.username and parsed.password:
+        netloc = f"{parsed.username}:{parsed.password}@{netloc}"
+    if port:
+        netloc = f"{netloc}:{port}"
+    new_url = urlunparse((
+        parsed.scheme,
+        netloc,
+        parsed.path,
+        parsed.params,
+        parsed.query,
+        parsed.fragment
+    ))
+    return new_url
+
+
+def get_url_without_scheme(url: str) -> str:
+    """
+    Get the url without scheme
+    """
+    parsed = urlparse(url)
+    return parsed.netloc + parsed.path
 
 
 def find_by_id(data: dict, id: int) -> dict:

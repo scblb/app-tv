@@ -2,6 +2,7 @@ import configparser
 import os
 import re
 import shutil
+import socket
 import sys
 
 
@@ -39,6 +40,7 @@ class ConfigManager:
     def __init__(self):
         self.config = None
         self.load()
+        self.override_config_with_env()
 
     def __getattr__(self, name, *args, **kwargs):
         return getattr(self.config, name, *args, **kwargs)
@@ -313,7 +315,27 @@ class ConfigManager:
 
     @property
     def app_host(self):
-        return os.getenv("APP_HOST") or self.config.get("Settings", "app_host", fallback="http://localhost")
+        env = os.getenv("APP_HOST")
+        if env:
+            return env
+        cfg = self.config.get("Settings", "app_host", fallback="http://localhost")
+        if cfg and cfg != "http://localhost":
+            return cfg
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            try:
+                s.connect(("8.8.8.8", 80))
+                ip = s.getsockname()[0]
+            finally:
+                s.close()
+            if ip and not ip.startswith("127."):
+                scheme = "http"
+                if "://" in cfg:
+                    scheme = cfg.split("://", 1)[0]
+                return f"{scheme}://{ip}"
+        except Exception:
+            pass
+        return cfg
 
     @property
     def app_port(self):
@@ -321,7 +343,7 @@ class ConfigManager:
 
     @property
     def open_supply(self):
-        return self.config.getboolean("Settings", "open_supply", fallback=False)
+        return self.config.getboolean("Settings", "open_supply", fallback=True)
 
     @property
     def update_time_position(self):
@@ -367,6 +389,38 @@ class ConfigManager:
     def speed_test_limit(self):
         return self.config.getint("Settings", "speed_test_limit", fallback=10)
 
+    @property
+    def location(self):
+        return [
+            l.strip()
+            for l in self.config.get(
+                "Settings", "location", fallback=""
+            ).split(",")
+            if l.strip()
+        ]
+
+    @property
+    def isp(self):
+        return [
+            i.strip()
+            for i in self.config.get(
+                "Settings", "isp", fallback=""
+            ).split(",")
+            if i.strip()
+        ]
+
+    @property
+    def update_interval(self):
+        return self.config.getfloat("Settings", "update_interval", fallback=12)
+
+    @property
+    def logo_url(self):
+        return self.config.get("Settings", "logo_url", fallback="")
+
+    @property
+    def logo_type(self):
+        return self.config.get("Settings", "logo_type", fallback="png")
+
     def load(self):
         """
         Load the config
@@ -381,6 +435,17 @@ class ConfigManager:
             if os.path.exists(config_file):
                 with open(config_file, "r", encoding="utf-8") as f:
                     self.config.read_file(f)
+
+    def override_config_with_env(self):
+        for section in self.config.sections():
+            for key in self.config[section]:
+                section_key = f"{section}_{key}"
+                candidates = (key, key.upper(), section_key, section_key.upper())
+                for env_name in candidates:
+                    env_val = os.getenv(env_name)
+                    if env_val is not None:
+                        self.config.set(section, key, env_val)
+                        break
 
     def set(self, section, key, value):
         """

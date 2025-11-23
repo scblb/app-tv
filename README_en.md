@@ -3,43 +3,57 @@
   <h1 align="center">IPTV-API</h1>
 </div>
 
-<div align="center">A highly customizable IPTV interface update project 📺, with customizable channel menus, automatic live stream acquisition, speed testing, and validation to generate usable results, achieving 『✨instant playback experience🚀』</div>
-<br>
+📺 IPTV live-source auto-update platform — 🤖 fully automated collection, filtering, speed-testing, and generation
+pipeline 🚀. Supports extensive customization; paste the resulting URL into your player to watch
+
+<p align="center">
+    <br>
+    <a href="https://trendshift.io/repositories/12327" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12327" alt="Guovin%2Fiptv-api | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+</p>
+
 <p align="center">
   <a href="https://github.com/Guovin/iptv-api/releases/latest">
-    <img src="https://img.shields.io/github/v/release/guovin/iptv-api" />
+    <img src="https://img.shields.io/github/v/release/guovin/iptv-api?label=Version" />
   </a>
   <a href="https://www.python.org/">
-    <img src="https://img.shields.io/badge/python-%20%3D%203.13-47c219" />
+    <img src="https://img.shields.io/badge/python-3.13-47c219?label=Python" />
   </a>
   <a href="https://github.com/Guovin/iptv-api/releases/latest">
-    <img src="https://img.shields.io/github/downloads/guovin/iptv-api/total" />
+    <img src="https://img.shields.io/github/downloads/guovin/iptv-api/total?label=GUI%20Downloads" />
   </a>
   <a href="https://hub.docker.com/repository/docker/guovern/iptv-api">
-    <img src="https://img.shields.io/docker/pulls/guovern/iptv-api" />
+    <img src="https://img.shields.io/docker/pulls/guovern/iptv-api?label=Docker%20Pulls" />
   </a>
   <a href="https://github.com/Guovin/iptv-api/fork">
-    <img src="https://img.shields.io/github/forks/guovin/iptv-api" />
+    <img src="https://img.shields.io/github/forks/guovin/iptv-api?label=Forks" />
   </a>
 </p>
 
+<div align="center">
+
 [中文](./README.md) | English
 
-🎉💻[IPTV-Web](https://github.com/Guovin/iptv-web): IPTV live stream management platform, supports online playback and
+</div>
+
+🎉💻 [IPTV-Web](https://github.com/Guovin/iptv-web): IPTV live stream management platform, supports online playback and
 other features, under development...
 
-- [✅ Features](#features)
+💖 [Channel Alias Collection Plan](https://github.com/Guovin/iptv-api/discussions/1082)
+
+- [✅ Core Features](#core-features)
 - [🔗 Latest results](#latest-results)
 - [⚙️ Config parameter](#Config)
 - [🚀 Quick Start](#quick-start)
+    - [Configuration and Results Directory](#configuration-and-results-directory)
     - [Workflow](#workflow)
     - [Command Line](#command-line)
     - [GUI Software](#gui-software)
     - [Docker](#docker)
 - [📖 Detailed Tutorial](./docs/tutorial_en.md)
 - [🗓️ Changelog](./CHANGELOG.md)
-- [❤️ Appreciate](#appreciate)
-- [👀 Follow the public account](#follow)
+- [❤️ Donations](#donations)
+- [👀 Follow](#follow)
+- [⭐️ Star History](#star-history)
 - [📣 Disclaimer](#disclaimer)
 - [⚖️ License](#license)
 
@@ -58,9 +72,6 @@ other features, under development...
 - [iptv-org/iptv](https://github.com/iptv-org/iptv)
 - [suxuang/myIPTV](https://github.com/suxuang/myIPTV)
 - [kimwang1978/collect-tv-txt](https://github.com/kimwang1978/collect-tv-txt)
-- [asdjkl6/tv](https://github.com/asdjkl6/tv)
-- [yuanzl77/IPTV](https://github.com/yuanzl77/IPTV)
-- [fanmingming/live](https://github.com/fanmingming/live)
 - [vbskycn/iptv](https://github.com/vbskycn/iptv)
 
 📍Channel icons are from:
@@ -69,25 +80,28 @@ other features, under development...
 
 </details>
 
-## Features
+## Core Features
 
-- ✅ Customize the template to generate the channel you want
-- ✅ Supports RTMP streaming (live/hls) to enhance playback experience
-- ✅ Supports multiple source acquisition methods: local source, multicast source, hotel source, subscription source,
-  keyword search
-- ✅ Support for playback interface retrieval and generation
-- ✅ Supports EPG functionality, displaying channel preview content
-- ✅ Interface speed verification, obtain delay, speed, resolution, filter invalid interface
-- ✅ Preferences: IPv4、IPv6, priority and quantity of interface source sorting, and interface whitelist
-- ✅ Scheduled execution at 6:00 AM and 18:00 PM Beijing time daily
-- ✅ Supports various execution methods: workflows, command line, GUI software, Docker(amd64/arm64/arm v7)
-- ✨ For more features, see [Config parameter](#Config)
+| Feature                               | Status | Description                                                                                                |
+|:--------------------------------------|:------:|:-----------------------------------------------------------------------------------------------------------|
+| **Custom Templates**                  |   ✅    | Generate personalized channels as you wish                                                                 |
+| **Channel Alias**                     |   ✅    | Improves channel result coverage and accuracy, supports regular expressions                                |
+| **Multiple Source Types**             |   ✅    | Supports local sources, multicast, hotel sources, subscriptions, and keyword search                        |
+| **RTMP Streaming**                    |   ✅    | Supports Live and HLS modes to enhance live playback experience                                            |
+| **Playback Interfaces**               |   ✅    | Supports acquisition and generation of playback interfaces                                                 |
+| **EPG (Electronic Program Guide)**    |   ✅    | Displays channel preview content                                                                           |
+| **Channel Logo**                      |   ✅    | Supports custom channel logo library sources                                                               |
+| **Interface Speed Test & Validation** |   ✅    | Measures latency, speed, resolution, and filters invalid interfaces                                        |
+| **Advanced Preferences**              |   ✅    | IPv4/IPv6, interface sorting priority, quantity configuration, blacklist/whitelist, region & ISP filtering |
+| **Scheduled Tasks**                   |   ✅    | Automatically updates at 6:00 and 18:00 Beijing time daily by default; customizable schedule               |
+| **Multiple Run Modes**                |   ✅    | Supports workflow, CLI, GUI software, Docker (amd64/arm64/arm v7)                                          |
+| **More Features**                     |   ✨    | See [Configuration Parameters](#Config) section for details                                                |
 
 ## Latest results
 
 > [!IMPORTANT]\
-> The following addresses may fail to be accessed domestically. It is recommended to prepend a proxy address for use.
-> The public account can reply with `CDN` to obtain it.
+> The following addresses may not be stable for access within China. It is recommended to prepend a proxy address for
+> use. You can reply with `cdn` in the public account to obtain it.
 
 ### Live Sources
 
@@ -117,6 +131,10 @@ https://raw.githubusercontent.com/Guovin/iptv-api/gd/source.json
 
 ## Config
 
+> [!NOTE]\
+> The following configuration items are located in `config/config.ini` and can be modified via the configuration file or
+> environment variables. Save changes and restart to apply.
+
 | Configuration Item     | Description                                                                                                                                                                                                                                                                                                                                                                                                                      | Default Value     |
 |:-----------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------|
 | open_driver            | Enable browser execution, If there are no updates, this mode can be enabled, which consumes more performance                                                                                                                                                                                                                                                                                                                     | False             |
@@ -136,28 +154,33 @@ https://raw.githubusercontent.com/Guovin/iptv-api/gd/source.json
 | open_request           | Enable query request, the data is obtained from the network (only for hotel sources and multicast sources)                                                                                                                                                                                                                                                                                                                       | False             |
 | open_rtmp              | Enable RTMP push function, need to install FFmpeg, use local bandwidth to improve the interface playback experience                                                                                                                                                                                                                                                                                                              | False             |
 | open_service           | Enable page service, used to control whether to start the result page service; if deployed on platforms like Qinglong with dedicated scheduled tasks, the function can be turned off after updates are completed and the task is stopped                                                                                                                                                                                         | True              |
-| open_speed_test        | Enable speed measurement sorting function (response speed, date, resolution)                                                                                                                                                                                                                                                                                                                                                     | True              |
+| open_speed_test        | Enable speed test functionality to obtain response time, rate, and resolution                                                                                                                                                                                                                                                                                                                                                    | True              |
 | open_subscribe         | Enable subscription source feature                                                                                                                                                                                                                                                                                                                                                                                               | True              |
-| open_supply            | Enable compensation mechanism mode, used to control when the number of channel interfaces is insufficient, automatically add interfaces that do not meet the conditions (such as lower than the minimum rate) but may be available to the result, thereby avoiding the result being empty                                                                                                                                        | False             |
+| open_supply            | Enable compensation mechanism mode, used to control when the number of channel interfaces is insufficient, automatically add interfaces that do not meet the conditions (such as lower than the minimum rate) but may be available to the result, thereby avoiding the result being empty                                                                                                                                        | True              |
 | open_update            | Enable updates, if disabled then only the result page service is run                                                                                                                                                                                                                                                                                                                                                             | True              |
 | open_update_time       | Enable show update time                                                                                                                                                                                                                                                                                                                                                                                                          | True              |
 | open_url_info          | Enable to display interface description information, used to control whether to display interface source, resolution, protocol type and other information, the content after the $ symbol, the playback software uses this information to describe the interface, if some players (such as PotPlayer) do not support parsing and cannot play, you can turn it off                                                                | False             |
 | open_use_cache         | Enable the use of local cache data, applicable to the query request failure scenario (only for hotel sources and multicast sources)                                                                                                                                                                                                                                                                                              | True              |
 | open_history           | Enable the use of historical update results (including the interface for template and result files) and merge them into the current update                                                                                                                                                                                                                                                                                       | True              |
 | open_headers           | Enable to use the request header verification information contained in M3U, used for speed measurement and other operations. Note: Only a few players support playing this type of interface with verification information, which is turned off by default                                                                                                                                                                       | False             |
+| app_host               | Page service Host address, default is to use the local machine IP                                                                                                                                                                                                                                                                                                                                                                |                   |
 | app_port               | Page service port, used to control the port number of the page service                                                                                                                                                                                                                                                                                                                                                           | 8000              |
 | cdn_url                | CDN proxy acceleration address, used for accelerated access to subscription sources, channel icons and other resources                                                                                                                                                                                                                                                                                                           |                   |
 | final_file             | Generated result file path                                                                                                                                                                                                                                                                                                                                                                                                       | output/result.txt |
 | hotel_num              | The number of preferred hotel source interfaces in the results                                                                                                                                                                                                                                                                                                                                                                   | 10                |
 | hotel_page_num         | Number of pages to retrieve for hotel regions                                                                                                                                                                                                                                                                                                                                                                                    | 1                 |
 | hotel_region_list      | List of hotel source regions, 'all' indicates all regions                                                                                                                                                                                                                                                                                                                                                                        | all               |
+| isp                    | Interface operator, used to control the result to only include the filled operator type, supports keyword filtering, separated by English commas, not filled in means no operator specified                                                                                                                                                                                                                                      |                   |
 | ipv4_num               | The preferred number of IPv4 interfaces in the result                                                                                                                                                                                                                                                                                                                                                                            | 5                 |
 | ipv6_num               | The preferred number of IPv6 interfaces in the result                                                                                                                                                                                                                                                                                                                                                                            | 5                 |
 | ipv6_support           | It is forced to consider that the current network supports IPv6 and skip the check                                                                                                                                                                                                                                                                                                                                               | False             |
 | ipv_type               | The protocol type of interface in the generated result, optional values: ipv4, ipv6, all                                                                                                                                                                                                                                                                                                                                         | all               |
 | ipv_type_prefer        | Interface protocol type preference, prioritize interfaces of this type in the results, optional values: ipv4, ipv6, auto                                                                                                                                                                                                                                                                                                         | ipv6,ipv4         |
+| location               | Interface location, used to control the result to only include the filled location type, supports keyword filtering, separated by English commas, not filled in means no location specified, it is recommended to use the location close to the user, which can improve the playback experience                                                                                                                                  |                   |
 | local_file             | Local source file path                                                                                                                                                                                                                                                                                                                                                                                                           | config/local.txt  |
 | local_num              | Preferred number of local source interfaces in the result                                                                                                                                                                                                                                                                                                                                                                        | 10                |
+| logo_url               | Channel logo library URL address                                                                                                                                                                                                                                                                                                                                                                                                 |                   |
+| logo_type              | Channel logo file type                                                                                                                                                                                                                                                                                                                                                                                                           | png               |
 | min_resolution         | Minimum interface resolution, requires enabling open_filter_resolution to take effect                                                                                                                                                                                                                                                                                                                                            | 1920x1080         |
 | max_resolution         | Maximum interface resolution, requires enabling open_filter_resolution to take effect                                                                                                                                                                                                                                                                                                                                            | 1920x1080         |
 | min_speed              | Minimum interface speed (M/s), requires enabling open_filter_speed to take effect                                                                                                                                                                                                                                                                                                                                                | 0.5               |
@@ -176,9 +199,40 @@ https://raw.githubusercontent.com/Guovin/iptv-api/gd/source.json
 | subscribe_num          | The number of preferred subscribe source interfaces in the results                                                                                                                                                                                                                                                                                                                                                               | 10                |
 | time_zone              | Time zone, can be used to control the time zone displayed by the update time, optional values: Asia/Shanghai or other time zone codes                                                                                                                                                                                                                                                                                            | Asia/Shanghai     |
 | urls_limit             | Number of interfaces per channel                                                                                                                                                                                                                                                                                                                                                                                                 | 10                |
+| update_interval        | Scheduled execution update interval, unit hours, set 0 or empty means run only once, does not apply to workflow                                                                                                                                                                                                                                                                                                                  | 12                |
 | update_time_position   | Update time display position, need to enable open_update_time to take effect, optional values: top, bottom, top: display at the top of the result, bottom: display at the bottom of the result                                                                                                                                                                                                                                   | top               |
 
 ## Quick Start
+
+### Configuration and Results Directory
+
+```
+iptv-api/                  # Project root directory
+├── config                 # Configuration files directory, includes config files, templates, etc.
+│   └── config.ini         # Configuration parameters file
+│   └── rtp                # Multicast IPs for each region/operator
+│   └── demo.txt           # Channel template
+│   └── alias.txt          # Channel aliases
+│   └── blacklist.txt      # Interface blacklist
+│   └── whitelist.txt      # Interface whitelist
+│   └── subscribe.txt      # Channel subscription sources list
+│   └── local.txt          # Local source file
+│   └── epg.txt            # EPG subscription sources list
+├── output                 # Output files directory, includes generated result files, etc.
+│   └── data               # Result data cache directory
+│   └── epg                # EPG result directory
+│   └── ipv4               # IPv4 result directory
+│   └── ipv6               # IPv6 result directory
+│   └── result.m3u/txt     # m3u/txt result
+│   └── live.m3u/txt       # RTMP live stream result
+│   └── hls.m3u/txt        # RTMP hls stream result
+│   └── log                # Log files directory
+│       └── result.log     # Valid result log
+│       └── speed_test.log # Speed test log
+│       └── statistic.log  # Statistics result log
+│       └── nomatch.log    # Unmatched channel records
+└── source.json            # VOD source configuration file
+```
 
 ### Workflow
 
@@ -209,8 +263,8 @@ pipenv run service
 
 ### GUI Software
 
-1. Download [IPTV-API update software](https://github.com/Guovin/iptv-api/releases), open the software, click update to
-   complete the update
+1. Download the [IPTV-API Update Software](https://github.com/Guovin/iptv-api/releases), open the software, and click
+   Start to perform the update
 
 2. Or run the following command in the project directory to open the GUI software:
 
@@ -254,27 +308,32 @@ Taking the host path /etc/docker as an example:
 
 ##### Environment Variables:
 
-| Variable    | Description          | Default Value      |
-|:------------|:---------------------|:-------------------|
-| APP_HOST    | Service host address | "http://localhost" |
-| APP_PORT    | Service port         | 8000               |
-| UPDATE_CRON | Scheduled task time  | "0 22,10 * * *"    |
+| Variable | Description          | Default Value    |
+|:---------|:---------------------|:-----------------|
+| APP_HOST | Service host address | Local machine IP |
+| APP_PORT | Service port         | 8000             |
+
+In addition to the environment variables listed above, you can also override the [configuration items](#Config) in the
+configuration file via environment variables.
 
 #### 3. Update Results
 
-| Endpoint  | Description           |
-|:----------|:----------------------|
-| /         | Default endpoint      |
-| /m3u      | m3u format endpoint   |
-| /txt      | txt format endpoint   |
-| /ipv4     | ipv4 default endpoint |
-| /ipv6     | ipv6 default endpoint |
-| /ipv4/txt | ipv4 txt endpoint     |
-| /ipv6/txt | ipv6 txt endpoint     |
-| /ipv4/m3u | ipv4 m3u endpoint     |
-| /ipv6/m3u | ipv6 m3u endpoint     |
-| /content  | Endpoint content      |
-| /log      | Speed test log        |
+| Endpoint        | Description                                     |
+|:----------------|:------------------------------------------------|
+| /               | Default endpoint                                |
+| /m3u            | m3u format endpoint                             |
+| /txt            | txt format endpoint                             |
+| /ipv4           | ipv4 default endpoint                           |
+| /ipv6           | ipv6 default endpoint                           |
+| /ipv4/txt       | ipv4 txt endpoint                               |
+| /ipv6/txt       | ipv6 txt endpoint                               |
+| /ipv4/m3u       | ipv4 m3u endpoint                               |
+| /ipv6/m3u       | ipv6 m3u endpoint                               |
+| /content        | Endpoint content                                |
+| /log/result     | Log of valid results                            |
+| /log/speed-test | Log of all interfaces involved in speed testing |
+| /log/statistic  | Log of statistics results                       |
+| /log/nomatch    | Log of unmatched channels                       |
 
 - RTMP Streaming:
 
@@ -306,19 +365,29 @@ Taking the host path /etc/docker as an example:
 
 [Changelog](./CHANGELOG.md)
 
-## Appreciate
+## Follow
+
+### GitHub
+
+Follow my GitHub account [Guovin](https://github.com/Guovin) to find more useful projects
+
+### WeChat public account
+
+WeChat public account search for Govin, or scan the code to receive updates and learn more tips:
+
+![Wechat public account](./static/images/qrcode.jpg)
+
+## Star History
+
+[![Star History Chart](https://starchart.cc/Guovin/iptv-api.svg?variant=adaptive)](https://starchart.cc/Guovin/iptv-api)
+
+## Donations
 
 <div>Development and maintenance are not easy, please buy me a coffee ~</div>
 
 | Alipay                                | Wechat                                    |
 |---------------------------------------|-------------------------------------------|
 | ![Alipay](./static/images/alipay.jpg) | ![Wechat](./static/images/appreciate.jpg) |
-
-## Follow
-
-Wechat public account search for Govin, or scan the code to receive updates and learn more tips:
-
-![Wechat public account](./static/images/qrcode.jpg)
 
 ## Disclaimer
 

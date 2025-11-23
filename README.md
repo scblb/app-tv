@@ -3,42 +3,55 @@
   <h1 align="center">IPTV-API</h1>
 </div>
 
-<div align="center">一个可高度自定义的IPTV接口更新项目📺，自定义频道菜单，自动获取直播源，测速验效后生成可用的结果，可实现『✨秒播级体验🚀』</div>
-<br>
+📺IPTV直播源自动更新平台，『🤖全自动采集、筛选、测速、生成流程🚀』，支持丰富的个性化配置，将结果地址输入播放器即可观看
+
+<p align="center">
+  <br>
+  <a href="https://trendshift.io/repositories/12327" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12327" alt="Guovin%2Fiptv-api | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+</p>
+
 <p align="center">
   <a href="https://github.com/Guovin/iptv-api/releases/latest">
-    <img src="https://img.shields.io/github/v/release/guovin/iptv-api" />
+    <img src="https://img.shields.io/github/v/release/guovin/iptv-api?label=Version" />
   </a>
   <a href="https://www.python.org/">
-    <img src="https://img.shields.io/badge/python-%20%3D%203.13-47c219" />
+    <img src="https://img.shields.io/badge/python-3.13-47c219?label=Python" />
   </a>
   <a href="https://github.com/Guovin/iptv-api/releases/latest">
-    <img src="https://img.shields.io/github/downloads/guovin/iptv-api/total" />
+    <img src="https://img.shields.io/github/downloads/guovin/iptv-api/total?label=GUI%20Downloads" />
   </a>
   <a href="https://hub.docker.com/repository/docker/guovern/iptv-api">
-    <img src="https://img.shields.io/docker/pulls/guovern/iptv-api" />
+    <img src="https://img.shields.io/docker/pulls/guovern/iptv-api?label=Docker%20Pulls" />
   </a>
   <a href="https://github.com/Guovin/iptv-api/fork">
-    <img src="https://img.shields.io/github/forks/guovin/iptv-api" />
+    <img src="https://img.shields.io/github/forks/guovin/iptv-api?label=Forks" />
   </a>
 </p>
 
+<div align="center">
+
 [English](./README_en.md) | 中文
 
-🎉💻[IPTV-Web](https://github.com/Guovin/iptv-web)：IPTV电视直播源管理平台，支持在线播放等功能，开发中...
+</div>
 
-- [✅ 特点](#特点)
+🎉💻 [IPTV-Web](https://github.com/Guovin/iptv-web)：IPTV电视直播源管理平台，支持在线播放等功能，开发中...
+
+💖 [频道别名收集计划](https://github.com/Guovin/iptv-api/discussions/1082)
+
+- [✅ 核心特性](#核心特性)
 - [🔗 最新结果](#最新结果)
 - [⚙️ 配置参数](#配置)
 - [🚀 快速上手](#快速上手)
+    - [配置与结果目录](#配置与结果目录)
     - [工作流](#工作流)
     - [命令行](#命令行)
     - [GUI软件](#GUI-软件)
     - [Docker](#Docker)
 - [📖 详细教程](./docs/tutorial.md)
 - [🗓️ 更新日志](./CHANGELOG.md)
-- [❤️ 赞赏](#赞赏)
-- [👀 关注公众号](#关注)
+- [👀 关注](#关注)
+- [⭐️ Star统计](#Star统计)
+- [❤️ 捐赠](#捐赠)
 - [📣 免责声明](#免责声明)
 - [⚖️ 许可证](#许可证)
 
@@ -56,9 +69,6 @@
 - [iptv-org/iptv](https://github.com/iptv-org/iptv)
 - [suxuang/myIPTV](https://github.com/suxuang/myIPTV)
 - [kimwang1978/collect-tv-txt](https://github.com/kimwang1978/collect-tv-txt)
-- [asdjkl6/tv](https://github.com/asdjkl6/tv)
-- [yuanzl77/IPTV](https://github.com/yuanzl77/IPTV)
-- [fanmingming/live](https://github.com/fanmingming/live)
 - [vbskycn/iptv](https://github.com/vbskycn/iptv)
 
 📍频道图标来自：
@@ -67,23 +77,27 @@
 
 </details>
 
-## 特点
+## 核心特性
 
-- ✅ 自定义模板，生成您想要的频道
-- ✅ 支持RTMP推流(live/hls)，提升播放体验
-- ✅ 支持多种获取源方式：本地源、组播源、酒店源、订阅源、关键字搜索
-- ✅ 支持回放类接口获取与生成
-- ✅ 支持EPG功能，显示频道预告内容
-- ✅ 接口测速验效，获取延迟、速率、分辨率，过滤无效接口
-- ✅ 偏好设置：IPv4、IPv6、接口来源排序优先级与数量配置、接口白名单
-- ✅ 定时执行，北京时间每日 6:00 与 18:00 执行更新
-- ✅ 支持多种运行方式：工作流、命令行、GUI 软件、Docker(amd64/arm64/arm v7)
-- ✨ 更多功能请见[配置参数](#配置)
+| 功能           | 支持状态 | 说明                                           |
+|:-------------|:----:|:---------------------------------------------|
+| **自定义模板**    |  ✅   | 生成您想要的个性化频道                                  |
+| **频道别名**     |  ✅   | 提升频道结果获取量与准确率，支持正则表达式                        |
+| **多种源获取方式**  |  ✅   | 支持本地源、组播源、酒店源、订阅源、关键字搜索                      |
+| **RTMP推流**   |  ✅   | 支持Live与HLS模式，提升直播播放体验                        |
+| **回放类接口**    |  ✅   | 支持回放类接口的获取与生成                                |
+| **EPG电子节目单** |  ✅   | 显示频道预告内容                                     |
+| **频道台标**     |  ✅   | 支持自定义频道台标库来源                                 |
+| **接口测速验效**   |  ✅   | 获取延迟、速率、分辨率，并过滤无效接口                          |
+| **高级偏好设置**   |  ✅   | IPv4/IPv6、接口排序优先级、数量配置、黑白名单、归属地与运营商过滤        |
+| **定时任务**     |  ✅   | 默认北京时间每日 6:00 与 18:00 自动更新，可自定义时间或间歇更新       |
+| **多种运行方式**   |  ✅   | 支持工作流、命令行、GUI 软件、Docker (amd64/arm64/arm v7) |
+| **更多功能**     |  ✨   | 详见[配置参数](#配置)章节                              |
 
 ## 最新结果
 
 > [!IMPORTANT]\
-> 以下地址国内访问可能会失败，建议在前拼接代理地址使用，公众号可回复`CDN`获取
+> 以下地址国内可能无法稳定访问，推荐在前拼接代理地址使用，公众号可回复`cdn`获取
 
 ### 直播源
 
@@ -113,12 +127,15 @@ https://raw.githubusercontent.com/Guovin/iptv-api/gd/source.json
 
 ## 配置
 
+> [!NOTE]\
+> 以下配置项位于`config/config.ini`文件中，支持通过配置文件或环境变量进行修改，修改保存后重启即可生效
+
 | 配置项                    | 描述                                                                                                                                                                    | 默认值               |
 |:-----------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------|
 | open_driver            | 开启浏览器运行，若更新无数据可开启此模式，较消耗性能                                                                                                                                            | False             |
 | open_epg               | 开启EPG功能，支持频道显示预告内容                                                                                                                                                    | True              |
 | open_empty_category    | 开启无结果频道分类，自动归类至底部                                                                                                                                                     | False             |
-| open_filter_resolution | 开启分辨率过滤，低于最小分辨率（min_resolution）的接口将会被过滤，GUI用户需要手动安装FFmpeg，程序会自动调用FFmpeg获取接口分辨率，推荐开启，虽然会增加测速阶段耗时，但能更有效地区分是否可播放的接口                                                      | True              |
+| open_filter_resolution | 开启分辨率过滤，低于最小分辨率（min_resolution）的接口将会被过滤，GUI用户需要手动安装FFmpeg，程序会自动调用FFmpeg获取接口分辨率，推荐开启，虽然会增加测速阶段耗时，但能更有效地区分是否可播放的接口                                                      | True              |                                                                                                                                                    |
 | open_filter_speed      | 开启速率过滤，低于最小速率（min_speed）的接口将会被过滤                                                                                                                                      | True              |
 | open_hotel             | 开启酒店源功能，关闭后所有酒店源工作模式都将关闭                                                                                                                                              | False             |
 | open_hotel_foodie      | 开启 Foodie 酒店源工作模式                                                                                                                                                     | True              |
@@ -132,28 +149,33 @@ https://raw.githubusercontent.com/Guovin/iptv-api/gd/source.json
 | open_request           | 开启查询请求，数据来源于网络（仅针对酒店源与组播源）                                                                                                                                            | False             |
 | open_rtmp              | 开启RTMP推流功能，需要安装FFmpeg，利用本地带宽提升接口播放体验                                                                                                                                  | False             |
 | open_service           | 开启页面服务，用于控制是否启动结果页面服务；如果使用青龙等平台部署，有专门设定的定时任务，需要更新完成后停止运行，可以关闭该功能                                                                                                      | True              |
-| open_speed_test        | 开启测速排序功能（响应速度、日期、分辨率）                                                                                                                                                 | True              |
+| open_speed_test        | 开启测速功能，获取响应时间、速率、分辨率                                                                                                                                                  | True              |
 | open_subscribe         | 开启订阅源功能                                                                                                                                                               | False             |
-| open_supply            | 开启补偿机制模式，用于控制当频道接口数量不足时，自动将不满足条件（例如低于最小速率）但可能可用的接口添加至结果中，从而避免结果为空的情况                                                                                                  | False             |
+| open_supply            | 开启补偿机制模式，用于控制当频道接口数量不足时，自动将不满足条件（例如低于最小速率）但可能可用的接口添加至结果中，从而避免结果为空的情况                                                                                                  | True              |
 | open_update            | 开启更新，用于控制是否更新接口，若关闭则所有工作模式（获取接口和测速）均停止                                                                                                                                | True              |
 | open_update_time       | 开启显示更新时间                                                                                                                                                              | True              |
 | open_url_info          | 开启显示接口说明信息，用于控制是否显示接口来源、分辨率、协议类型等信息，为$符号后的内容，播放软件使用该信息对接口进行描述，若部分播放器（如PotPlayer）不支持解析导致无法播放可关闭                                                                        | False             |
 | open_use_cache         | 开启使用本地缓存数据，适用于查询请求失败场景（仅针对酒店源与组播源）                                                                                                                                    | True              |
 | open_history           | 开启使用历史更新结果（包含模板与结果文件的接口），合并至本次更新中                                                                                                                                     | True              |
 | open_headers           | 开启使用M3U内含的请求头验证信息，用于测速等操作，注意：只有个别播放器支持播放这类含验证信息的接口，默认为关闭                                                                                                              | False             |
+| app_host               | 页面服务Host地址，默认使用本机IP                                                                                                                                                   |                   |
 | app_port               | 页面服务端口，用于控制页面服务的端口号                                                                                                                                                   | 8000              |
 | cdn_url                | CDN代理加速地址，用于订阅源、频道图标等资源的加速访问                                                                                                                                          |                   |
 | final_file             | 生成结果文件路径                                                                                                                                                              | output/result.txt |
 | hotel_num              | 结果中偏好的酒店源接口数量                                                                                                                                                         | 10                |
 | hotel_page_num         | 酒店地区获取分页数量                                                                                                                                                            | 1                 |
 | hotel_region_list      | 酒店源地区列表，"全部"表示所有地区                                                                                                                                                    | 全部                |
+| isp                    | 接口运营商，用于控制结果中只包含填写的运营商类型，支持关键字过滤，英文逗号分隔，不填写表示不指定运营商                                                                                                                   |                   |
 | ipv4_num               | 结果中偏好的 IPv4 接口数量                                                                                                                                                      | 5                 |
 | ipv6_num               | 结果中偏好的 IPv6 接口数量                                                                                                                                                      | 5                 |
 | ipv6_support           | 强制认为当前网络支持IPv6，跳过检测                                                                                                                                                   | False             |
 | ipv_type               | 生成结果中接口的协议类型，可选值：ipv4、ipv6、全部、all                                                                                                                                     | 全部                |
 | ipv_type_prefer        | 接口协议类型偏好，优先将该类型的接口排在结果前面，可选值：ipv4、ipv6、自动、auto                                                                                                                        | ipv6,ipv4         |
+| location               | 接口归属地，用于控制结果只包含填写的归属地类型，支持关键字过滤，英文逗号分隔，不填写表示不指定归属地，建议使用靠近使用者的归属地，能提升播放体验                                                                                              |                   |
 | local_file             | 本地源文件路径                                                                                                                                                               | config/local.txt  |
 | local_num              | 结果中偏好的本地源接口数量                                                                                                                                                         | 10                |
+| logo_url               | 频道台标库地址                                                                                                                                                               |                   |
+| logo_type              | 频道台标文件类型                                                                                                                                                              | png               |
 | min_resolution         | 接口最小分辨率，需要开启 open_filter_resolution 才能生效                                                                                                                              | 1920x1080         |
 | max_resolution         | 接口最大分辨率，需要开启 open_filter_resolution 才能生效                                                                                                                              | 1920x1080         |
 | min_speed              | 接口最小速率（单位M/s），需要开启 open_filter_speed 才能生效                                                                                                                             | 0.5               |
@@ -172,9 +194,40 @@ https://raw.githubusercontent.com/Guovin/iptv-api/gd/source.json
 | subscribe_num          | 结果中偏好的订阅源接口数量                                                                                                                                                         | 10                |
 | time_zone              | 时区，可用于控制更新时间显示的时区，可选值：Asia/Shanghai 或其它时区编码                                                                                                                           | Asia/Shanghai     |
 | urls_limit             | 单个频道接口数量                                                                                                                                                              | 10                |
-| update_time_position   | 更新时间显示位置，需要开启 open_update_time 才能生效，可选值：top、bottom，top: 显示于结果顶部，bottom: 显示于结果底部                                                                                       | top               |
+| update_interval        | 定时执行更新时间间隔，单位小时，设置0或空则只运行一次，不作用于工作流                                                                                                                                   | 12                |
+| update_time_position   | 更新时间显示位置，需要开启 open_update_time 才能生效，可选值：top、bottom，top:显示于结果顶部，bottom: 显示于结果底部                                                                                        | top               |
 
 ## 快速上手
+
+### 配置与结果目录
+
+```
+iptv-api/                  # 项目根目录
+├── config                 # 配置文件目录，包含配置文件、模板文件等
+│   └── config.ini         # 配置参数文件
+│   └── rtp                # 各地区运营商组播源ip
+│   └── demo.txt           # 频道模板
+│   └── alias.txt          # 频道别名
+│   └── blacklist.txt      # 接口黑名单
+│   └── whitelist.txt      # 接口白名单
+│   └── subscribe.txt      # 频道订阅源列表
+│   └── local.txt          # 本地源文件
+│   └── epg.txt            # EPG订阅源列表
+├── output                 # 结果文件目录，包含生成的结果文件等
+│   └── data               # 结果数据缓存目录
+│   └── epg                # EPG结果目录
+│   └── ipv4               # IPv4结果目录
+│   └── ipv6               # IPv6结果目录
+│   └── result.m3u/txt     # m3u/txt结果
+│   └── live.m3u/txt       # RTMP live推流结果
+│   └── hls.m3u/txt        # RTMP hls推流结果
+│   └── log                # 日志文件目录
+│       └── result.log     # 有效结果日志
+│       └── speed_test.log # 测速日志
+│       └── statistic.log  # 统计结果日志
+│       └── nomatch.log    # 未匹配频道记录
+└── source.json            # 点播源配置文件
+```
 
 ### 工作流
 
@@ -204,7 +257,7 @@ pipenv run service
 
 ### GUI 软件
 
-1. 下载[IPTV-API 更新软件](https://github.com/Guovin/iptv-api/releases)，打开软件，点击更新，即可完成更新
+1. 下载[IPTV-API 更新软件](https://github.com/Guovin/iptv-api/releases)，打开软件，点击启动，即可进行更新
 
 2. 或者在项目目录下运行以下命令，即可打开 GUI 软件：
 
@@ -247,27 +300,31 @@ docker run -d -p 8000:8000 guovern/iptv-api
 
 ##### 环境变量：
 
-| 变量          | 描述                 | 默认值                |
-|:------------|:-------------------|:-------------------|
-| APP_HOST    | 服务host地址，可修改使用公网域名 | "http://localhost" |
-| APP_PORT    | 服务端口               | 8000               |
-| UPDATE_CRON | 定时任务执行时间           | "0 22,10 * * *"    |
+| 变量       | 描述                 | 默认值  |
+|:---------|:-------------------|:-----|
+| APP_HOST | 服务host地址，可修改使用公网域名 | 本机IP |
+| APP_PORT | 服务端口               | 8000 |
+
+除了以上环境变量，还支持通过环境变量覆盖配置文件中的[配置项](#配置)
 
 #### 3. 更新结果
 
-| 接口        | 描述         |
-|:----------|:-----------|
-| /         | 默认接口       |
-| /m3u      | m3u 格式接口   |
-| /txt      | txt 格式接口   |
-| /ipv4     | ipv4 默认接口  |
-| /ipv6     | ipv6 默认接口  |
-| /ipv4/txt | ipv4 txt接口 |
-| /ipv6/txt | ipv6 txt接口 |
-| /ipv4/m3u | ipv4 m3u接口 |
-| /ipv6/m3u | ipv6 m3u接口 |
-| /content  | 接口文本内容     |
-| /log      | 测速日志       |
+| 接口              | 描述          |
+|:----------------|:------------|
+| /               | 默认接口        |
+| /m3u            | m3u 格式接口    |
+| /txt            | txt 格式接口    |
+| /ipv4           | ipv4 默认接口   |
+| /ipv6           | ipv6 默认接口   |
+| /ipv4/txt       | ipv4 txt接口  |
+| /ipv6/txt       | ipv6 txt接口  |
+| /ipv4/m3u       | ipv4 m3u接口  |
+| /ipv6/m3u       | ipv6 m3u接口  |
+| /content        | 接口文本内容      |
+| /log/result     | 有效结果的日志     |
+| /log/speed-test | 所有参与测速接口的日志 |
+| /log/statistic  | 统计结果的日志     |
+| /log/nomatch    | 未匹配频道的日志    |
 
 - RTMP 推流：
 
@@ -298,7 +355,23 @@ docker run -d -p 8000:8000 guovern/iptv-api
 
 [更新日志](./CHANGELOG.md)
 
-## 赞赏
+## 关注
+
+### Github
+
+关注我的Github账号[Guovin](https://github.com/Guovin)，获取更多实用项目
+
+### 微信公众号
+
+微信公众号搜索 Govin，或扫码，接收更新推送、学习更多使用技巧：
+
+![微信公众号](./static/images/qrcode.jpg)
+
+## Star统计
+
+[![Star统计](https://starchart.cc/Guovin/iptv-api.svg?variant=adaptive)](https://starchart.cc/Guovin/iptv-api)
+
+## 捐赠
 
 <div>开发维护不易，请我喝杯咖啡☕️吧~</div>
 
@@ -306,11 +379,55 @@ docker run -d -p 8000:8000 guovern/iptv-api
 |--------------------------------------|-----------------------------------------|
 | ![支付宝扫码](./static/images/alipay.jpg) | ![微信扫码](./static/images/appreciate.jpg) |
 
-## 关注
+### ❤️ 捐赠名单
 
-微信公众号搜索 Govin，或扫码，接收更新推送、学习更多使用技巧：
+衷心感谢每一位捐赠者！您的慷慨帮助我们改进和完善项目，感谢您的支持！❤️
 
-![微信公众号](./static/images/qrcode.jpg)
+| 名称            | 来源  | 留言            | 金额   |
+|:--------------|:----|:--------------|:-----|
+| Fernando 杨    | 公众号 |               | 100  |
+| Chief         | 赞赏码 |               | 66   |
+| 陈启跃           | 赞赏码 | 继续加油，已关注      | 50   |
+| 中国人（陈特光）      | 公众号 |               | 50   |
+| James Zong    | 赞赏码 |               | 50   |
+| Peike         | 赞赏码 |               | 50   |
+| 孟敬人           | 赞赏码 |               | 50   |
+| **彬           | 支付宝 |               | 30   |
+| 戒烟            | 公众号 | 大佬辛苦了         | 25   |
+| 搂着猫的老鼠        | 公众号 | 受教了，非常感谢您的付出  | 25   |
+| 米多            | 赞赏码 | 非常强大，加油       | 20   |
+| pakysr        | 赞赏码 |               | 20   |
+| 随波            | 公众号 |               | 20   |
+| 公子            | 公众号 |               | 20   |
+| 迎着风雨成长        | 公众号 |               | 20   |
+| 丨说好的幸福呢       | 公众号 |               | 20   |
+| 大胖雷蒙德         | 公众号 | 加油！           | 20   |
+| 科技=未来～随心所欲=幸福 | 公众号 |               | 20   |
+| 钦             | 公众号 | 谢谢你           | 20   |
+| 王炫茗           | 赞赏码 |               | 20   |
+| *会            | 支付宝 |               | 20   |
+| 草草不恭先生        | 赞赏码 | 简直就是造福人民的项目   | 10   |
+| dysenan       | 赞赏码 |               | 10   |
+| zzj           | 赞赏码 |               | 10   |
+| 彪             | 赞赏码 |               | 10   |
+| 李老师（杠爷）       | 公众号 |               | 10   |
+| 威记            | 公众号 |               | 10   |
+| zxx           | 公众号 |               | 10   |
+| *洁            | 支付宝 |               | 10   |
+| *胜            | 支付宝 |               | 10   |
+| **翔           | 支付宝 |               | 10   |
+| *宇            | 支付宝 |               | 10   |
+| **欣           | 支付宝 |               | 10   |
+| **高           | 支付宝 |               | 10   |
+| **胜           | 支付宝 |               | 10   |
+| 烊             | 公众号 |               | 8.88 |
+| 阿雨辰           | 赞赏码 | 虽然没看懂，但觉得挺牛逼的 | 6.66 |
+| 骑着蜗牛追火箭       | 公众号 | 大佬威武！！！！！     | 5    |
+| 大胖雷蒙德         | 公众号 | 加油。           | 5    |
+| 韶梦年华          | 公众号 |               | 5    |
+| BlueSymphony  | 公众号 |               | 5    |
+| 青山碧水间         | 公众号 |               | 5    |
+| **勇           | 支付宝 |               | 5    |
 
 ## 免责声明
 

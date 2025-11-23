@@ -1,18 +1,20 @@
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
+from logging import INFO
 from time import time
 
-from requests import Session, exceptions
 from tqdm.asyncio import tqdm_asyncio
 
 import utils.constants as constants
 from utils.channel import format_channel_name
 from utils.config import config
+from utils.requests.tools import get_soup_requests
 from utils.retry import retry_func
 from utils.tools import (
     merge_objects,
     get_pbar_remaining,
-    get_name_url
+    get_name_url,
+    get_logger
 )
 
 
@@ -24,6 +26,7 @@ async def get_channels_by_subscribe_urls(
         retry=True,
         error_print=True,
         whitelist=None,
+        pbar_desc="Processing subscribe",
         callback=None,
 ):
     """
@@ -35,7 +38,7 @@ async def get_channels_by_subscribe_urls(
     subscribe_urls_len = len(urls)
     pbar = tqdm_asyncio(
         total=subscribe_urls_len,
-        desc=f"Processing subscribe {'for multicast' if multicast else ''}",
+        desc=pbar_desc,
     )
     start_time = time()
     mode_name = "组播" if multicast else "酒店" if hotel else "订阅"
@@ -45,6 +48,7 @@ async def get_channels_by_subscribe_urls(
             0,
         )
     hotel_name = constants.origin_map["hotel"]
+    logger = get_logger(constants.nomatch_log_path, level=INFO, init=True)
 
     def process_subscribe_channels(subscribe_info: str | dict) -> defaultdict:
         region = ""
@@ -57,22 +61,21 @@ async def get_channels_by_subscribe_urls(
             subscribe_url = subscribe_info
         channels = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         in_whitelist = whitelist and (subscribe_url in whitelist)
-        session = Session()
         try:
             response = None
             try:
                 response = (
                     retry_func(
-                        lambda: session.get(
+                        lambda: get_soup_requests(
                             subscribe_url, timeout=config.request_timeout
                         ),
                         name=subscribe_url,
                     )
                     if retry
-                    else session.get(subscribe_url, timeout=config.request_timeout)
+                    else get_soup_requests(subscribe_url, timeout=config.request_timeout)
                 )
-            except exceptions.Timeout:
-                print(f"Timeout on subscribe: {subscribe_url}")
+            except Exception as e:
+                print(f"{subscribe_url}: {e}")
             if response:
                 response.encoding = "utf-8"
                 content = response.text
@@ -92,9 +95,16 @@ async def get_channels_by_subscribe_urls(
                     if name and url:
                         name = format_channel_name(name)
                         if names and name not in names:
+                            logger.info(f"{item["name"]},{item["url"]}")
                             continue
-                        url = url.partition("$")[0]
-                        value = url if multicast else {"url": url, "headers": item.get("headers", None)}
+                        url_partition = url.partition("$")
+                        url = url_partition[0]
+                        info = url_partition[2]
+                        value = url if multicast else {
+                            "url": url,
+                            "headers": item.get("headers", None),
+                            "extra_info": info
+                        }
                         if in_whitelist:
                             value["origin"] = "whitelist"
                         if hotel:
@@ -114,7 +124,7 @@ async def get_channels_by_subscribe_urls(
             if error_print:
                 print(f"Error on {subscribe_url}: {e}")
         finally:
-            session.close()
+            logger.handlers.clear()
             pbar.update()
             remain = subscribe_urls_len - pbar.n
             if callback:
